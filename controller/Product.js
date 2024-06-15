@@ -14,8 +14,8 @@ exports.createProduct = async (req, res) => {
 
 exports.fetchAllProducts = async (req, res) => {
     try {
-        let query = Product.find({});
-        let totalProductsQuery = Product.find({});
+        let query = Product.find({ deleted: { $ne: true } });
+        let totalProductsQuery = Product.find({ deleted: { $ne: true } });
 
         if (req.query.category) {
             query = query.find({ category: req.query.category });
@@ -63,6 +63,6 @@ exports.updateProduct = async (req, res) => {
         res.status(200).json(product);
     } catch (err) {
         res.status(400).json(err);
-    
+
     }
 };
